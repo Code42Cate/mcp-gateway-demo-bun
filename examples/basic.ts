@@ -8,10 +8,9 @@ const sandbox = await Sandbox.betaCreate({
             storagePath: '/'
         },
     },
+    timeoutMs: 600_000, // 10 minutes until the sandbox is killed
 });
 
-// TODO: There is a race condition, will be fixed before release
-await new Promise(resolve => setTimeout(resolve, 1000));
 
 const mcpUrl = sandbox.betaGetMcpUrl();
 console.log(`Sandbox created with MCP URL: ${mcpUrl} and Auth token ${await sandbox.betaGetMcpToken()}`);

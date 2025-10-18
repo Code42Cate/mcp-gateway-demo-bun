@@ -12,9 +12,6 @@ const mcpUrl = sbx.betaGetMcpUrl();
 const mcpToken = await sbx.betaGetMcpToken();
 console.log(`Sandbox created with MCP URL: ${mcpUrl}`);
 
-// TODO: There is a race condition, will be fixed before release
-await new Promise(resolve => setTimeout(resolve, 1000));
-
 // Add MCP server with authentication token
 await sbx.commands.run(`claude mcp add --transport http e2b-mcp-gateway ${mcpUrl} --header "Authorization: Bearer ${mcpToken}"`, { timeoutMs: 0, onStdout: console.log, onStderr: console.log });
 

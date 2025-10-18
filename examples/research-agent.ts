@@ -11,8 +11,6 @@ const sandbox = await Sandbox.betaCreate({
     },
 });
 
-// TODO: There is a race condition, will be fixed before release
-await new Promise(resolve => setTimeout(resolve, 1000));
 
 const mcpUrl = sandbox.betaGetMcpUrl();
 console.log(`Sandbox created with MCP URL: ${mcpUrl}`);

@@ -11,9 +11,6 @@ const sandbox = await Sandbox.betaCreate({
     timeoutMs: 600_000,
 });
 
-// TODO: There is a race condition, will be fixed before release
-await new Promise(resolve => setTimeout(resolve, 1000));
-
 const client = new Client({
     name: 'streamable-e2b-gateway-client',
     version: '1.0.0'

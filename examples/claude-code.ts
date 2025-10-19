@@ -3,8 +3,12 @@ import Sandbox from 'e2b'
 const sbx = await Sandbox.betaCreate({
     envs: {
         ANTHROPIC_API_KEY: process.env.ANTHROPIC_API_KEY!,
-    },    
+    },
     mcp: {
+        duckduckgo: {},
+        arxiv: {
+            storagePath: '/'
+        },
     },
 });
 

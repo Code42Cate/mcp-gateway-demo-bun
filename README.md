@@ -63,7 +63,7 @@ bun examples/research-agent.ts
 The beta is also released for the Python SDK:
 
 ```
-pip install e2b==2.3.0
+pip install e2b==2.3.3
 ```
 
 ```python

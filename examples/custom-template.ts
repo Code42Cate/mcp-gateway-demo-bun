@@ -1,5 +1,5 @@
-import { Sandbox } from "../../E2B-sdk/packages/js-sdk/src/sandbox";
-import { Template } from "../../E2B-sdk/packages/js-sdk/src/template";
+import { Sandbox } from "e2b";
+import { Template } from "e2b";
 import { Client } from '@modelcontextprotocol/sdk/client/index.js';
 import { StreamableHTTPClientTransport } from '@modelcontextprotocol/sdk/client/streamableHttp.js';
 
@@ -8,7 +8,7 @@ const alias = "browserbase-mcp-gateway";
 export const template = Template()
     .fromTemplate("mcp-gateway")
     // this will cache the browserbase server docker image in the template, speeding up the listTools call during runtime
-    .betaAddMcpServer("browserbase")
+    .betaAddMcpServer(["browserbase", 'e2b'])
 
 await Template.build(template, {
     alias,
@@ -23,6 +23,9 @@ const sandbox = await Sandbox.betaCreate(alias, {
             apiKey: process.env.BROWSERBASE_API_KEY!,
             geminiApiKey: process.env.GEMINI_API_KEY!,
             projectId: process.env.BROWSERBASE_PROJECT_ID!,
+        },
+        e2b: {
+            apiKey: process.env.E2B_API_KEY!,
         }
     },
     timeoutMs: 600_000,
@@ -34,11 +37,11 @@ const client = new Client({
 });
 
 const transport = new StreamableHTTPClientTransport(new URL(sandbox.betaGetMcpUrl()), {
-     requestInit: {
+    requestInit: {
         headers: {
             'Authorization': `Bearer ${await sandbox.betaGetMcpToken()}`
         }
-     }
+    }
 });
 
 await client.connect(transport);
